@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz | JavaLearn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #7733ff;
+            --primary-light: #9966ff;
+            --secondary: #4107b4;
+            --accent: #004aad;
+            --accent-light: #0066ff;
+            --dark: #000000;
+            --darker: #111111;
+            --light: #ffffff;
+            --neon-glow: 0 0 10px rgba(119, 51, 255, 0.8),
+                          0 0 20px rgba(119, 51, 255, 0.6),
+                          0 0 30px rgba(119, 51, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background-color: var(--darker);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(119, 51, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 74, 173, 0.1) 0%, transparent 20%);
+        }
+
+        .js-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--neon-glow);
+            margin-right: auto;
+            padding-left: 2rem;
+            position: relative;
+            z-index: 10;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .nav-button {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                            transparent, 
+                            rgba(119, 51, 255, 0.4), 
+                            transparent);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-button:hover {
+            color: var(--light);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(119, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button.active {
+            background: rgba(119, 51, 255, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(119, 51, 255, 0.3);
+        }
+
+        header {
+            position: relative;
+            padding: 8rem 0 6rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -2;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,0,0,0.1)" d="M0,0 L100,0 L100,100 L0,100 Z" /><path fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" d="M0,50 L100,50 M50,0 L50,100" /></svg>');
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), #cccccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        header p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .quiz-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .quiz-card {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(119, 51, 255, 0.2);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .quiz-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
+            z-index: -1;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-card:hover::before {
+            opacity: 1;
+            animation: rotateGradient 3s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .quiz-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-light);
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary-light), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .quiz-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .quiz-question-container {
+            display: none;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(119, 51, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-progress {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .quiz-timer {
+            font-size: 0.9rem;
+            color: var(--primary-light);
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            background: rgba(50, 50, 50, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            background: rgba(119, 51, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .option.selected {
+            background: rgba(119, 51, 255, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(119, 51, 255, 0.3);
+        }
+
+        .option.correct {
+            background: rgba(0, 200, 0, 0.3);
+            border-color: #00cc00;
+        }
+
+        .option.incorrect {
+            background: rgba(200, 0, 0, 0.3);
+            border-color: #cc0000;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .quiz-btn {
+            background: rgba(119, 51, 255, 0.3);
+            color: var(--light);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+        }
+
+        .quiz-btn:hover {
+            background: rgba(119, 51, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(119, 51, 255, 0.3);
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .quiz-results {
+            display: none;
+            text-align: center;
+            max-width: 600px;
+            margin: 2rem auto;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(119, 51, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .results-score {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            background: linear-gradient(to right, var(--primary), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .results-message {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-details {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .result-item {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(119, 51, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            border-top: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(119,51,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            z-index: -1;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                gap: 0.3rem;
+            }
+            
+            .nav-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .quiz-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="js-logo animate__animated animate__fadeInLeft">JS</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-button animate__animated animate__fadeInDown">Home</a>
+                <a href="about.html" class="nav-button animate__animated animate__fadeInDown animate__delay-1s">About</a>
+                <a href="history.html" class="nav-button animate__animated animate__fadeInDown animate__delay-2s">History</a>
+                <a href="learn.html" class="nav-button animate__animated animate__fadeInDown animate__delay-3s">Learn</a>
+                <a href="quiz.html" class="nav-button active animate__animated animate__fadeInDown animate__delay-4s">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="animate__animated animate__fadeIn">
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInUp">JavaScript Quizzes</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Test your knowledge and master JavaScript concepts</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div id="quiz-selection">
+            <h2>Choose a Topic</h2>
+            <div class="quiz-container">
+                <div class="quiz-card animate__animated animate__fadeInUp" data-quiz="variables">
+                    <div class="quiz-icon">x = 5</div>
+                    <h3 class="quiz-title">Variables</h3>
+                    <p class="quiz-desc">Test your understanding of var, let, const and variable scope</p>
+                    <div class="quiz-stats">
+                        <span>20 Questions</span>
+                        <span>Medium</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-card animate__animated animate__fadeInUp animate__delay-1s" data-quiz="functions">
+                    <div class="quiz-icon">f()</div>
+                    <h3 class="quiz-title">Functions</h3>
+                    <p class="quiz-desc">Arrow functions, closures, and function declarations</p>
+                    <div class="quiz-stats">
+                        <span>22 Questions</span>
+                        <span>Medium</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-card animate__animated animate__fadeInUp animate__delay-2s" data-quiz="arrays">
+                    <div class="quiz-icon">[]</div>
+                    <h3 class="quiz-title">Arrays</h3>
+                    <p class="quiz-desc">Array methods and manipulation techniques</p>
+                    <div class="quiz-stats">
+                        <span>18 Questions</span>
+                        <span>Easy</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-card animate__animated animate__fadeInUp animate__delay-3s" data-quiz="objects">
+                    <div class="quiz-icon">{}</div>
+                    <h3 class="quiz-title">Objects</h3>
+                    <p class="quiz-desc">Object properties, methods, and prototypes</p>
+                    <div class="quiz-stats">
+                        <span>20 Questions</span>
+                        <span>Hard</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-card animate__animated animate__fadeInUp animate__delay-4s" data-quiz="dom">
+                    <div class="quiz-icon">DOM</div>
+                    <h3 class="quiz-title">DOM Manipulation</h3>
+                    <p class="quiz-desc">Selecting and modifying elements in the browser</p>
+                    <div class="quiz-stats">
+                        <span>20 Questions</span>
+                        <span>Medium</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="quiz-screen" class="quiz-question-container">
+            <div class="quiz-header">
+                <div class="quiz-progress">Question <span id="current-question">1</span>/<span id="total-questions">10</span></div>
+                <div class="quiz-timer">Time: <span id="time">30</span>s</div>
+            </div>
+            <div class="question-text" id="question-text">What is the correct way to declare a variable in JavaScript?</div>
+            <div class="options-container" id="options-container">
+            </div>
+            <div class="quiz-controls">
+                <button class="quiz-btn" id="prev-btn" disabled>Previous</button>
+                <button class="quiz-btn" id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div id="results-screen" class="quiz-results">
+            <h2>Quiz Completed!</h2>
+            <div class="results-score" id="final-score">8/10</div>
+            <div class="results-message" id="result-message">Great job! You know your JavaScript well!</div>
+            <div class="results-details">
+                <div class="result-item">
+                    <span>Correct Answers:</span>
+                    <span id="correct-answers">8</span>
+                </div>
+                <div class="result-item">
+                    <span>Wrong Answers:</span>
+                    <span id="wrong-answers">2</span>
+                </div>
+                <div class="result-item">
+                    <span>Time Taken:</span>
+                    <span id="time-taken">2:30</span>
+                </div>
+            </div>
+            <button class="quiz-btn" id="restart-btn">Take Another Quiz</button>
+        </div>
+    </div>
+    
+    <footer class="animate__animated animate__fadeIn animate__delay-1s">
+        <div class="container">
+            <p>&copy; 2025 <strong>JavaLearn</strong>. All rights reserved. | Pushing the boundaries of innovation</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 2 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s linear infinite`;
+                
+                particlesContainer.appendChild(particle);
+                
+                const keyframes = `
+                    @keyframes float {
+                        0% { transform: translate(0, 0); }
+                        25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                        50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                        75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                        100% { transform: translate(0, 0); }
+                    }
+                `;
+                
+                const style = document.createElement('style');
+                style.innerHTML = keyframes;
+                document.head.appendChild(style);
+            }
+
+            const quizData = {
+                variables: [
+                    {
+                        question: "Which keyword declares a block-scoped variable?",
+                        options: ["var", "let", "const", "both let and const"],
+                        answer: 3
+                    },
+                    {
+                        question: "What is the value of x after: var x = 5; x = 'hello';?",
+                        options: ["5", "'hello'", "undefined", "null"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is hoisting in JavaScript?",
+                        options: [
+                            "Moving variables to the top of their scope",
+                            "A way to declare variables",
+                            "A type of loop",
+                            "A function declaration"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "Which of these is NOT a valid variable name?",
+                        options: ["_myVar", "myVar1", "1myVar", "$myVar"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the scope of a variable declared with 'var'?",
+                        options: [
+                            "Block scope",
+                            "Function scope",
+                            "Global scope only",
+                            "Module scope"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What will be the output of: console.log(typeof undeclaredVar);?",
+                        options: ["undefined", "null", "ReferenceError", "string"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which statement about 'const' is true?",
+                        options: [
+                            "const variables can be reassigned",
+                            "const variables must be initialized when declared",
+                            "const variables are hoisted to the global scope",
+                            "const variables can be declared without a value"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the value of y after: let y = 10; y += '5';?",
+                        options: ["15", "105", "10", "'105'"],
+                        answer: 3
+                    },
+                    {
+                        question: "What is the output of: let a = 1; { let a = 2; } console.log(a);?",
+                        options: ["1", "2", "undefined", "ReferenceError"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which keyword allows variable redeclaration?",
+                        options: ["let", "const", "var", "none of these"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: console.log(x); let x = 5;?",
+                        options: ["5", "undefined", "ReferenceError", "null"],
+                        answer: 2
+                    },
+                    {
+                        question: "Which variable declaration has temporal dead zone?",
+                        options: ["var", "let", "const", "both let and const"],
+                        answer: 3
+                    },
+                    {
+                        question: "What is the value of z after: const z = {a:1}; z.a = 2;?",
+                        options: ["{a:1}", "{a:2}", "TypeError", "ReferenceError"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which is NOT a primitive data type in JavaScript?",
+                        options: ["string", "number", "object", "boolean"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: console.log(0.1 + 0.2 === 0.3);?",
+                        options: ["true", "false", "undefined", "NaN"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which operator checks both value and type equality?",
+                        options: ["==", "===", "=", "!=="],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: console.log(typeof null);?",
+                        options: ["null", "object", "undefined", "string"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the value of: Boolean('false');?",
+                        options: ["false", "true", "undefined", "NaN"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method converts a string to a number?",
+                        options: ["parseInt()", "toString()", "toNumber()", "valueOf()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: console.log(1 + '1' - 1);?",
+                        options: ["10", "11", "0", "NaN"],
+                        answer: 0
+                    }
+                ],
+                functions: [
+                    {
+                        question: "What is a closure in JavaScript?",
+                        options: [
+                            "A function that returns another function",
+                            "A function that has access to its outer function's scope",
+                            "A way to close a program",
+                            "A built-in JavaScript method"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "Which is NOT a way to declare a function?",
+                        options: [
+                            "function myFunc() {}",
+                            "const myFunc = function() {}",
+                            "const myFunc = () => {}",
+                            "function = myFunc() {}"
+                        ],
+                        answer: 3
+                    },
+                    {
+                        question: "What does the 'this' keyword refer to in an arrow function?",
+                        options: [
+                            "The function itself",
+                            "The global object",
+                            "The object that called the function",
+                            "The lexical context where it was defined"
+                        ],
+                        answer: 3
+                    },
+                    {
+                        question: "What is an IIFE?",
+                        options: [
+                            "A function that runs immediately after being defined",
+                            "A type of loop",
+                            "A built-in JavaScript object",
+                            "A way to declare variables"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the purpose of the 'return' statement?",
+                        options: [
+                            "To exit a function",
+                            "To specify the value to be returned by a function",
+                            "To stop the execution of JavaScript",
+                            "To print a value to the console"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: (function(x) { return x * x; })(5);?",
+                        options: ["10", "25", "undefined", "ReferenceError"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which is true about arrow functions?",
+                        options: [
+                            "They have their own 'this' binding",
+                            "They can be used as constructors",
+                            "They don't have 'arguments' object",
+                            "They have a prototype property"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is a higher-order function?",
+                        options: [
+                            "A function that takes another function as argument",
+                            "A function that returns another function",
+                            "Both A and B",
+                            "A function with complex logic"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: function foo(){} console.log(foo.prototype);?",
+                        options: ["undefined", "{}", "null", "TypeError"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is function currying?",
+                        options: [
+                            "Converting a function to uppercase",
+                            "Transforming a function to take multiple arguments one at a time",
+                            "A way to declare functions",
+                            "A type of function invocation"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: let foo = () => { return {bar: 'baz'}; }; console.log(foo());?",
+                        options: ["undefined", "{bar: 'baz'}", "null", "ReferenceError"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method creates a new function with fixed 'this' value?",
+                        options: ["call()", "apply()", "bind()", "attach()"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: function foo(a,b) { return a + b; } foo(1);?",
+                        options: ["1", "NaN", "undefined", "ReferenceError"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is a pure function?",
+                        options: [
+                            "A function with no side effects",
+                            "A function that depends only on its inputs",
+                            "Both A and B",
+                            "A function that modifies external state"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: console.log(typeof function(){});?",
+                        options: ["function", "object", "undefined", "string"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is a callback function?",
+                        options: [
+                            "A function passed as argument to another function",
+                            "A function that calls another function",
+                            "A function that returns a value",
+                            "A function with no parameters"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: function foo() { return this; } console.log(foo());?",
+                        options: ["undefined", "window object", "null", "foo function"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which is NOT a benefit of arrow functions?",
+                        options: [
+                            "Shorter syntax",
+                            "Lexical 'this' binding",
+                            "Can be used as constructors",
+                            "No prototype property"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: let x = function y() { return 1; }; console.log(y());?",
+                        options: ["1", "undefined", "ReferenceError", "TypeError"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is a generator function?",
+                        options: [
+                            "A function that generates random numbers",
+                            "A function that can be paused and resumed",
+                            "A function that creates other functions",
+                            "A function that runs in parallel"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: function* gen() { yield 1; yield 2; } let g = gen(); console.log(g.next().value);?",
+                        options: ["1", "2", "{value:1,done:false}", "undefined"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which is true about default parameters?",
+                        options: [
+                            "They must come after regular parameters",
+                            "They can be functions",
+                            "They are evaluated at call time",
+                            "All of the above"
+                        ],
+                        answer: 3
+                    }
+                ],
+                arrays: [
+                    {
+                        question: "Which method adds elements to the end of an array?",
+                        options: ["push()", "pop()", "shift()", "unshift()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What does the map() method do?",
+                        options: [
+                            "Creates a new array with results of calling a function on every element",
+                            "Filters elements based on a condition",
+                            "Reduces the array to a single value",
+                            "Sorts the array elements"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "How do you check if a variable is an array?",
+                        options: [
+                            "typeof variable === 'array'",
+                            "variable.isArray()",
+                            "Array.isArray(variable)",
+                            "variable instanceof Array"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What does the spread operator (...) do with arrays?",
+                        options: [
+                            "Expands an array into individual elements",
+                            "Combines two arrays",
+                            "Creates a copy of an array",
+                            "All of the above"
+                        ],
+                        answer: 3
+                    },
+                    {
+                        question: "Which method removes the last element from an array?",
+                        options: ["push()", "pop()", "shift()", "unshift()"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: [1,2,3].slice(1);?",
+                        options: ["[1]", "[2,3]", "[1,2]", "[1,2,3]"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method combines array elements into a string?",
+                        options: ["join()", "concat()", "toString()", "split()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: [1,2,3].filter(x => x > 1);?",
+                        options: ["[1]", "[2,3]", "[1,2]", "[1,2,3]"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method flattens nested arrays?",
+                        options: ["flat()", "join()", "concat()", "map()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: [1,2,3].reduce((a,b) => a + b);?",
+                        options: ["6", "[1,2,3]", "123", "undefined"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method finds the first element that satisfies a condition?",
+                        options: ["find()", "filter()", "search()", "some()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: [1,2,3].splice(1,1);?",
+                        options: ["[1]", "[2]", "[3]", "[1,3]"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method checks if at least one element satisfies a condition?",
+                        options: ["every()", "some()", "find()", "includes()"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: Array(3).fill(1);?",
+                        options: ["[1,1,1]", "[3]", "[1]", "[undefined,undefined,undefined]"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method reverses an array in place?",
+                        options: ["reverse()", "sort()", "rotate()", "flip()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: [...'hello'];?",
+                        options: ["'hello'", "['h','e','l','l','o']", "[hello]", "Error"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method removes elements from an array and inserts new elements?",
+                        options: ["splice()", "slice()", "replace()", "modify()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: [1,2,3].map(x => x * 2);?",
+                        options: ["[1,2,3]", "[2,4,6]", "[1,4,9]", "undefined"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method checks if all elements satisfy a condition?",
+                        options: ["every()", "some()", "filter()", "find()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the output of: [1,2,3].concat([4,5]);?",
+                        options: ["[1,2,3,4,5]", "[1,2,3]", "[4,5]", "[1,2,3][4,5]"],
+                        answer: 0
+                    }
+                ],
+                objects: [
+                    {
+                        question: "How do you create an object in JavaScript?",
+                        options: ["let obj = {}", "let obj = new Object()", "let obj = Object.create()", "All of the above"],
+                        answer: 3
+                    },
+                    {
+                        question: "What is the output of: let obj = {a:1}; console.log(obj.b);?",
+                        options: ["1", "undefined", "null", "ReferenceError"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which method copies properties from one object to another?",
+                        options: ["Object.assign()", "Object.copy()", "Object.extend()", "Object.merge()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is a constructor function?",
+                        options: [
+                            "A function that creates objects",
+                            "A function that initializes objects",
+                            "Both A and B",
+                            "A function that destroys objects"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the prototype in JavaScript?",
+                        options: [
+                            "An object that provides shared properties for other objects",
+                            "A blueprint for creating objects",
+                            "Both A and B",
+                            "A type of function"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: let obj = {a:1}; console.log('a' in obj);?",
+                        options: ["true", "false", "1", "undefined"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method returns an array of object keys?",
+                        options: ["Object.keys()", "Object.getKeys()", "Object.properties()", "Object.names()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is object destructuring?",
+                        options: [
+                            "Breaking an object into smaller objects",
+                            "Extracting properties into variables",
+                            "Deleting object properties",
+                            "Converting objects to arrays"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: let obj = {a:1}; let obj2 = obj; obj2.a = 2; console.log(obj.a);?",
+                        options: ["1", "2", "undefined", "ReferenceError"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which symbol is used for computed property names?",
+                        options: ["[]", "{}", "()", "<>"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is a getter in an object?",
+                        options: [
+                            "A method that gets property values",
+                            "A property that executes a function when accessed",
+                            "A way to retrieve all object properties",
+                            "A type of object constructor"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: console.log(typeof {});?",
+                        options: ["object", "array", "function", "undefined"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method creates a new object with the prototype set to another object?",
+                        options: ["Object.create()", "Object.new()", "Object.prototype()", "Object.set()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the 'this' keyword in an object method?",
+                        options: [
+                            "The object itself",
+                            "The window object",
+                            "The prototype object",
+                            "The constructor function"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "What is object property shorthand?",
+                        options: [
+                            "Using shorter property names",
+                            "Omitting the value when property name matches variable name",
+                            "Using symbols instead of property names",
+                            "A way to hide properties"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the output of: let {a} = {a:1, b:2}; console.log(a);?",
+                        options: ["1", "2", "{a:1, b:2}", "undefined"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method prevents modifications to an object?",
+                        options: ["Object.freeze()", "Object.seal()", "Object.preventExtensions()", "All of the above"],
+                        answer: 3
+                    },
+                    {
+                        question: "What is the prototype chain?",
+                        options: [
+                            "A series of linked prototypes",
+                            "The hierarchy of object inheritance",
+                            "Both A and B",
+                            "A way to chain method calls"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the output of: console.log(Object.keys({a:1, b:2}));?",
+                        options: ["['a','b']", "[1,2]", "{a:1, b:2}", "undefined"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which operator checks if a property exists in an object?",
+                        options: ["in", "has", "exists", "contains"],
+                        answer: 0
+                    }
+                ],
+                dom: [
+                    {
+                        question: "What does DOM stand for?",
+                        options: [
+                            "Document Object Model",
+                            "Data Object Model",
+                            "Display Object Method",
+                            "Document Orientation Mode"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method selects an element by its ID?",
+                        options: ["document.querySelector()", "document.getElementById()", "document.getElementsByClassName()", "document.findElement()"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the correct way to change text content of an element?",
+                        options: [
+                            "element.text = 'new text'",
+                            "element.textContent = 'new text'",
+                            "element.innerHTML = 'new text'",
+                            "Both B and C"
+                        ],
+                        answer: 3
+                    },
+                    {
+                        question: "Which method creates a new element?",
+                        options: ["document.createElement()", "document.newElement()", "document.addElement()", "document.makeElement()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is event bubbling?",
+                        options: [
+                            "Events moving from target element up to document root",
+                            "Events moving from document root to target element",
+                            "Multiple events firing simultaneously",
+                            "Events repeating in a loop"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method adds an event listener?",
+                        options: ["element.addListener()", "element.attachEvent()", "element.addEventListener()", "element.onEvent()"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the purpose of event.preventDefault()?",
+                        options: [
+                            "To stop event bubbling",
+                            "To prevent default browser behavior",
+                            "To remove an event listener",
+                            "To cancel event propagation"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "Which property returns the parent element of a node?",
+                        options: ["element.parent", "element.parentNode", "element.owner", "element.root"],
+                        answer: 1
+                    },
+                    {
+                        question: "What does document.readyState indicate?",
+                        options: [
+                            "Whether DOM is fully loaded",
+                            "Whether all resources are loaded",
+                            "Both A and B",
+                            "Whether JavaScript is enabled"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "Which method removes a child element?",
+                        options: ["element.remove()", "parent.removeChild()", "child.delete()", "Both A and B"],
+                        answer: 3
+                    },
+                    {
+                        question: "What is the difference between innerHTML and textContent?",
+                        options: [
+                            "innerHTML parses HTML, textContent doesn't",
+                            "textContent is faster",
+                            "innerHTML can cause XSS vulnerabilities",
+                            "All of the above"
+                        ],
+                        answer: 3
+                    },
+                    {
+                        question: "Which event fires when the DOM is fully loaded?",
+                        options: ["DOMContentLoaded", "load", "ready", "complete"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is the purpose of document.createDocumentFragment()?",
+                        options: [
+                            "To create a lightweight DOM portion for batch updates",
+                            "To create a new document",
+                            "To fragment the DOM tree",
+                            "To create a template element"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method selects elements using a CSS selector?",
+                        options: ["document.querySelector()", "document.find()", "document.select()", "document.getSelector()"],
+                        answer: 0
+                    },
+                    {
+                        question: "What is event delegation?",
+                        options: [
+                            "Attaching event to parent instead of individual children",
+                            "Creating custom events",
+                            "Both A and B",
+                            "Delegating events to another element"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "Which property returns the first child element?",
+                        options: ["element.firstChild", "element.firstElementChild", "element.child[0]", "element.children[0]"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the purpose of dataset attributes?",
+                        options: [
+                            "To store custom data on elements",
+                            "To define element behavior",
+                            "To create data bindings",
+                            "To store CSS variables"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "Which method clones a DOM element?",
+                        options: ["element.copy()", "element.clone()", "element.cloneNode()", "element.duplicate()"],
+                        answer: 2
+                    },
+                    {
+                        question: "What is the difference between window and document?",
+                        options: [
+                            "window represents browser, document represents loaded page",
+                            "document is child of window",
+                            "Both A and B",
+                            "They are the same"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "Which method scrolls an element into view?",
+                        options: ["element.scroll()", "element.scrollToView()", "element.scrollIntoView()", "element.show()"],
+                        answer: 2
+                    }
+                ]
+            };
+
+            let currentQuiz = '';
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let timer;
+            let timeLeft = 30;
+            let startTime;
+            let selectedOptions = [];
+            let quizQuestions = [];
+
+            const quizSelection = document.getElementById('quiz-selection');
+            const quizScreen = document.getElementById('quiz-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const questionText = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const currentQuestionEl = document.getElementById('current-question');
+            const totalQuestionsEl = document.getElementById('total-questions');
+            const timeEl = document.getElementById('time');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finalScoreEl = document.getElementById('final-score');
+            const correctAnswersEl = document.getElementById('correct-answers');
+            const wrongAnswersEl = document.getElementById('wrong-answers');
+            const timeTakenEl = document.getElementById('time-taken');
+            const resultMessageEl = document.getElementById('result-message');
+            const restartBtn = document.getElementById('restart-btn');
+
+            document.querySelectorAll('.quiz-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    currentQuiz = this.getAttribute('data-quiz');
+                    startQuiz(currentQuiz);
+                });
+            });
+
+            function startQuiz(quizTopic) {
+                quizQuestions = [...quizData[quizTopic]];
+                selectedOptions = new Array(quizQuestions.length).fill(null);
+                
+                quizSelection.style.display = 'none';
+                quizScreen.style.display = 'block';
+                resultsScreen.style.display = 'none';
+                
+                currentQuestionIndex = 0;
+                score = 0;
+                timeLeft = 30;
+                startTime = new Date();
+                
+                totalQuestionsEl.textContent = quizQuestions.length;
+                showQuestion();
+                startTimer();
+            }
+
+            function showQuestion() {
+                const question = quizQuestions[currentQuestionIndex];
+                questionText.textContent = question.question;
+                optionsContainer.innerHTML = '';
+                
+                currentQuestionEl.textContent = currentQuestionIndex + 1;
+                
+                question.options.forEach((option, index) => {
+                    const optionEl = document.createElement('div');
+                    optionEl.classList.add('option');
+                    optionEl.textContent = option;
+                    
+                    if (selectedOptions[currentQuestionIndex] === index) {
+                        optionEl.classList.add('selected');
+                    }
+                    
+                    optionEl.addEventListener('click', () => selectOption(index));
+                    optionsContainer.appendChild(optionEl);
+                });
+                
+                prevBtn.disabled = currentQuestionIndex === 0;
+                nextBtn.textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'Finish' : 'Next';
+            }
+
+            function selectOption(index) {
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                document.querySelectorAll('.option')[index].classList.add('selected');
+                selectedOptions[currentQuestionIndex] = index;
+            }
+
+            function startTimer() {
+                clearInterval(timer);
+                timeLeft = 30;
+                timeEl.textContent = timeLeft;
+                
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timeEl.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        nextQuestion();
+                    }
+                }, 1000);
+            }
+
+            function nextQuestion() {
+                clearInterval(timer);
+                
+                if (selectedOptions[currentQuestionIndex] === quizQuestions[currentQuestionIndex].answer) {
+                    score++;
+                }
+                
+                if (currentQuestionIndex < quizQuestions.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion();
+                    startTimer();
+                } else {
+                    showResults();
+                }
+            }
+
+            function prevQuestion() {
+                clearInterval(timer);
+                currentQuestionIndex--;
+                showQuestion();
+                startTimer();
+            }
+
+            function showResults() {
+                clearInterval(timer);
+                
+                quizScreen.style.display = 'none';
+                resultsScreen.style.display = 'block';
+                
+                const endTime = new Date();
+                const timeTaken = Math.floor((endTime - startTime) / 1000);
+                const minutes = Math.floor(timeTaken / 60);
+                const seconds = timeTaken % 60;
+                
+                finalScoreEl.textContent = `${score}/${quizQuestions.length}`;
+                correctAnswersEl.textContent = score;
+                wrongAnswersEl.textContent = quizQuestions.length - score;
+                timeTakenEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                const percentage = (score / quizQuestions.length) * 100;
+                if (percentage >= 80) {
+                    resultMessageEl.textContent = "Excellent! You're a JavaScript expert!";
+                } else if (percentage >= 60) {
+                    resultMessageEl.textContent = "Good job! You know your JavaScript well!";
+                } else if (percentage >= 40) {
+                    resultMessageEl.textContent = "Not bad! Keep practicing to improve!";
+                } else {
+                    resultMessageEl.textContent = "Keep learning! Review the material and try again!";
+                }
+            }
+
+            function restartQuiz() {
+                resultsScreen.style.display = 'none';
+                quizSelection.style.display = 'block';
+            }
+
+            prevBtn.addEventListener('click', prevQuestion);
+            nextBtn.addEventListener('click', nextQuestion);
+            restartBtn.addEventListener('click', restartQuiz);
+        });
+    </script>
+</body>
+</html>
