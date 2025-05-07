@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | JavaLearn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #7733ff;
+            --primary-light: #9966ff;
+            --secondary: #4107b4;
+            --accent: #004aad;
+            --accent-light: #0066ff;
+            --dark: #000000;
+            --darker: #111111;
+            --light: #ffffff;
+            --neon-glow: 0 0 10px rgba(119, 51, 255, 0.8),
+                          0 0 20px rgba(119, 51, 255, 0.6),
+                          0 0 30px rgba(119, 51, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background-color: var(--darker);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(119, 51, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 74, 173, 0.1) 0%, transparent 20%);
+        }
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: #0a0a0a; /* dark background */
+        }
+
+        /* ===== GLOWING JS LOGO ===== */
+        .js-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--neon-glow);
+            margin-right: auto;
+            padding-left: 2rem;
+            position: relative;
+            z-index: 10;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* ===== FUTURISTIC NAVIGATION ===== */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .nav-button {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                            transparent, 
+                            rgba(119, 51, 255, 0.4), 
+                            transparent);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-button:hover {
+            color: var(--light);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(119, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }.nav-button.active {
+            background: rgba(119, 51, 255, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(119, 51, 255, 0.3);
+        }
+
+        /* ===== HERO SECTION ===== */
+        header {
+            position: relative;
+            padding: 8rem 0 6rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -2;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,0,0,0.1)" d="M0,0 L100,0 L100,100 L0,100 Z" /><path fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" d="M0,50 L100,50 M50,0 L50,100" /></svg>');
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), #cccccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        header p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* ===== TEAM CARDS ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .developer {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(119, 51, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .developer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
+            z-index: -1;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .developer:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .developer:hover::before {
+            opacity: 1;
+            animation: rotateGradient 3s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .dev-header {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dev-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .dev-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary-light), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }.dev-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .dev-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .dev-content {
+            padding: 2rem;
+        }
+
+        .dev-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .dev-content strong {
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            border-top: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(119,51,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            z-index: -1;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* ===== PARTICLE BACKGROUND ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(119, 51, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                gap: 0.3rem;
+            }
+            
+            .nav-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .team {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<body>
+
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="js-logo animate__animated animate__fadeInLeft">JS</div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-button active animate__animated animate__fadeInDown">Home</a>
+                <a href="about.html" class="nav-button animate__animated animate__fadeInDown animate__delay-1s">About</a>
+                <a href="history.html" class="nav-button animate__animated animate__fadeInDown animate__delay-2s">History</a>
+                <a href="learn.html" class="nav-button animate__animated animate__fadeInDown animate__delay-3s">Learn</a>
+                <a href="quiz.html" class="nav-button animate__animated animate__fadeInDown animate__delay-4s">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="animate__animated animate__fadeIn">
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInUp">Master JavaScript With Us</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">From fundamentals to expert skills — your JS journey starts here.</p>
+            <br><br>
+            <a href="learn.html" class="nav-button animate__animated animate__fadeInUp animate__delay-2s" style="font-size:1.2rem;">Start Learning</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="container">
+        <div class="team">
+            <!-- Feature 1 -->
+            <div class="developer animate__animated animate__fadeInUp">
+                <div class="dev-header">
+                    <h2 class="dev-name">Learn</h2>
+                    <p class="dev-title">Interactive Lessons</p>
+                </div>
+                <div class="dev-content">
+                    <p>Step-by-step modules that teach you JavaScript, from beginner basics to advanced topics.</p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="developer animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="dev-header">
+                    <h2 class="dev-name">Practice</h2>
+                    <p class="dev-title">Hands-on Challenges</p>
+                </div>
+                <div class="dev-content">
+                    <p>Apply what you learn with mini-projects, quizzes, and coding challenges designed to sharpen your skills.</p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="developer animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="dev-header">
+                    <h2 class="dev-name">Grow</h2>
+                    <p class="dev-title">Track Your Progress</p>
+                </div>
+                <div class="dev-content">
+                    <p>Earn badges, see your stats, and stay motivated on your journey to JavaScript mastery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        document.getElementById('particles').appendChild(canvas);
+        
+        let particles = [];
+        let w, h;
+        
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+        
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    size: Math.random() * 2 + 1,
+                    speedX: Math.random() * 0.5 - 0.25,
+                    speedY: Math.random() * 0.5 - 0.25
+                });
+            }
+        }
+        
+        function drawParticles() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = 'rgba(180, 100, 255, 0.8)'; // purple neon glow
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+        
+                // Wrap around edges
+                if (p.x < 0) p.x = w;
+                if (p.x > w) p.x = 0;
+                if (p.y < 0) p.y = h;
+                if (p.y > h) p.y = 0;
+            });
+        
+            requestAnimationFrame(drawParticles);
+        }
+        
+        createParticles();
+        drawParticles();
+        </script>
+        
+</body>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 <strong>JavaLearn</strong>. All rights reserved. | Pushing the boundaries of innovation</p>
+    </footer>
+
+</html>

@@ -1,0 +1,1005 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn JavaScript | JavaLearn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #7733ff;
+            --primary-light: #9966ff;
+            --secondary: #4107b4;
+            --accent: #004aad;
+            --accent-light: #0066ff;
+            --dark: #000000;
+            --darker: #111111;
+            --light: #ffffff;
+            --neon-glow: 0 0 10px rgba(119, 51, 255, 0.8),
+                          0 0 20px rgba(119, 51, 255, 0.6),
+                          0 0 30px rgba(119, 51, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background-color: var(--darker);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(119, 51, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 74, 173, 0.1) 0%, transparent 20%);
+        }
+
+        .js-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--neon-glow);
+            margin-right: auto;
+            padding-left: 2rem;
+            position: relative;
+            z-index: 10;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .nav-button {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                            transparent, 
+                            rgba(119, 51, 255, 0.4), 
+                            transparent);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-button:hover {
+            color: var(--light);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(119, 51, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button.active {
+            background: rgba(119, 51, 255, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(119, 51, 255, 0.3);
+        }
+
+        header {
+            position: relative;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -2;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,0,0,0.1)" d="M0,0 L100,0 L100,100 L0,100 Z" /><path fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" d="M0,50 L100,50 M50,0 L50,100" /></svg>');
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), #cccccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        header p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .topics-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+        }
+
+        .topic-link {
+            padding: 0.8rem 1.5rem;
+            background: rgba(119, 51, 255, 0.1);
+            border-radius: 50px;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(119, 51, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-link:hover, .topic-link.active {
+            background: rgba(119, 51, 255, 0.3);
+            color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(119, 51, 255, 0.2);
+        }
+
+        .topic {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(119, 51, 255, 0.2);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 25px rgba(119, 51, 255, 0.3);
+            transition: all 0.4s ease;
+            display: none;
+        }
+
+        .topic.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .topic:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(119, 51, 255, 0.4);
+        }
+
+        .topic h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-light);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .topic h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .definition {
+            background: rgba(20, 20, 20, 0.5);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .definition h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .definition p {
+            line-height: 1.7;
+        }
+
+        .types, .syntax {
+            margin-bottom: 2rem;
+        }
+
+        .types h3, .syntax h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+        }
+
+        .types h3::before, .syntax h3::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .type-list, .syntax-example {
+            background: rgba(20, 20, 20, 0.5);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .type-item {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        .type-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .type-item strong {
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #f8f8f2;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+            border: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        .code-block::before {
+            content: 'JS';
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.2rem 0.8rem;
+            background: rgba(119, 51, 255, 0.3);
+            color: var(--primary-light);
+            font-size: 0.8rem;
+            border-bottom-left-radius: 5px;
+        }
+
+        .question {
+            background: rgba(20, 20, 20, 0.5);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .question h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .question p {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(119, 51, 255, 0.4);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            border-top: 1px solid rgba(119, 51, 255, 0.3);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(119,51,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            z-index: -1;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(119, 51, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                gap: 0.3rem;
+            }
+            
+            .nav-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .topic {
+                padding: 1.5rem;
+            }
+            
+            .topic h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="js-logo animate__animated animate__fadeInLeft">JS</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-button animate__animated animate__fadeInDown">Home</a>
+                <a href="about.html" class="nav-button animate__animated animate__fadeInDown animate__delay-1s">About</a>
+                <a href="history.html" class="nav-button animate__animated animate__fadeInDown animate__delay-2s">History</a>
+                <a href="learn.html" class="nav-button active animate__animated animate__fadeInDown animate__delay-3s">Learn</a>
+                <a href="quiz.html" class="nav-button animate__animated animate__fadeInDown animate__delay-4s">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="animate__animated animate__fadeIn">
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInUp">Learn JavaScript</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Master the language that powers the modern web</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="topics-nav animate__animated animate__fadeIn">
+            <a href="#variables" class="topic-link" data-topic="variables">Variables</a>
+            <a href="#operators" class="topic-link" data-topic="operators">Operators</a>
+            <a href="#functions" class="topic-link" data-topic="functions">Functions</a>
+            <a href="#events" class="topic-link" data-topic="events">Events</a>
+            <a href="#objects" class="topic-link" data-topic="objects">Objects</a>
+            <a href="#arrays" class="topic-link" data-topic="arrays">Arrays</a>
+        </div>
+        
+        <div id="variables" class="topic">
+            <h2>Variables</h2>
+            
+            <div class="definition">
+                <h3>Definition</h3>
+                <p>Variables are containers for storing data values. In JavaScript, you can declare variables to hold values that can be used and manipulated throughout your code.</p>
+            </div>
+            
+            <div class="types">
+                <h3>Variable Types</h3>
+                <div class="type-list">
+                    <div class="type-item">
+                        <strong>var</strong> - The original way to declare variables (function-scoped)
+                    </div>
+                    <div class="type-item">
+                        <strong>let</strong> - Modern variable declaration (block-scoped)
+                    </div>
+                    <div class="type-item">
+                        <strong>const</strong> - For values that shouldn't change (block-scoped)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="syntax">
+                <h3>Syntax</h3>
+                <div class="syntax-example">
+                    <div class="code-block">
+// Variable declarations<br>
+var name = "John";<br>
+let age = 30;<br>
+const PI = 3.14;<br><br>
+// Variable reassignment<br>
+name = "Jane";<br>
+age = 31;<br>
+// PI = 3.15; // This would cause an error (const can't be reassigned)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>Practice Question</h3>
+                <p>What will be the output of the following code?</p>
+                <div class="code-block">
+let x = 10;<br>
+{<br>
+&nbsp;&nbsp;let x = 20;<br>
+&nbsp;&nbsp;console.log(x);<br>
+}<br>
+console.log(x);
+                </div>
+                <button class="btn show-answer">Show Answer</button>
+                <div class="answer" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(119, 51, 255, 0.1); border-radius: 5px;">
+                    The output will be:<br>
+                    20 (from inside the block)<br>
+                    10 (from outside the block)<br>
+                    This demonstrates block scoping with let.
+                </div>
+            </div>
+        </div>
+        
+        <div id="operators" class="topic">
+            <h2>Operators</h2>
+            
+            <div class="definition">
+                <h3>Definition</h3>
+                <p>Operators are symbols that perform operations on variables and values. JavaScript includes various types of operators for arithmetic, comparison, logical operations, and more.</p>
+            </div>
+            
+            <div class="types">
+                <h3>Operator Types</h3>
+                <div class="type-list">
+                    <div class="type-item">
+                        <strong>Arithmetic Operators</strong> - For mathematical operations (+, -, *, /, %, **)
+                    </div>
+                    <div class="type-item">
+                        <strong>Assignment Operators</strong> - For assigning values (=, +=, -=, *=, etc.)
+                    </div>
+                    <div class="type-item">
+                        <strong>Comparison Operators</strong> - For comparing values (==, ===, !=, !==, >, <, >=, <=)
+                    </div>
+                    <div class="type-item">
+                        <strong>Logical Operators</strong> - For logical operations (&&, ||, !)
+                    </div>
+                    <div class="type-item">
+                        <strong>Ternary Operator</strong> - A shorthand for if-else (condition ? expr1 : expr2)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="syntax">
+                <h3>Syntax</h3>
+                <div class="syntax-example">
+                    <div class="code-block">
+// Arithmetic operators<br>
+let sum = 10 + 5; // 15<br>
+let remainder = 10 % 3; // 1<br><br>
+// Comparison operators<br>
+let isEqual = (10 == "10"); // true (value equality)<br>
+let isStrictEqual = (10 === "10"); // false (value and type equality)<br><br>
+// Logical operators<br>
+let andResult = (true && false); // false<br>
+let orResult = (true || false); // true<br><br>
+// Ternary operator<br>
+let age = 20;<br>
+let status = (age >= 18) ? "Adult" : "Minor";
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>Practice Question</h3>
+                <p>What will be the value of 'result' after this code executes?</p>
+                <div class="code-block">
+let x = 5;<br>
+let y = 10;<br>
+let result = (x > 3 && y < 15) ? "Valid" : "Invalid";
+                </div>
+                <button class="btn show-answer">Show Answer</button>
+                <div class="answer" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(119, 51, 255, 0.1); border-radius: 5px;">
+                    The value of 'result' will be "Valid" because both conditions (x > 3 and y < 15) are true.
+                </div>
+            </div>
+        </div>
+        
+        <div id="functions" class="topic">
+            <h2>Functions</h2>
+            
+            <div class="definition">
+                <h3>Definition</h3>
+                <p>Functions are reusable blocks of code that perform a specific task. They help organize code into logical, reusable parts and can accept parameters and return values.</p>
+            </div>
+            
+            <div class="types">
+                <h3>Function Types</h3>
+                <div class="type-list">
+                    <div class="type-item">
+                        <strong>Function Declarations</strong> - Traditional function definition (hoisted)
+                    </div>
+                    <div class="type-item">
+                        <strong>Function Expressions</strong> - Functions assigned to variables
+                    </div>
+                    <div class="type-item">
+                        <strong>Arrow Functions</strong> - Compact ES6 syntax (lexical 'this')
+                    </div>
+                    <div class="type-item">
+                        <strong>IIFE (Immediately Invoked Function Expressions)</strong> - Functions that run immediately
+                    </div>
+                </div>
+            </div>
+            
+            <div class="syntax">
+                <h3>Syntax</h3>
+                <div class="syntax-example">
+                    <div class="code-block">
+// Function declaration<br>
+function greet(name) {<br>
+&nbsp;&nbsp;return `Hello, ${name}!`;<br>
+}<br><br>
+// Function expression<br>
+const greet = function(name) {<br>
+&nbsp;&nbsp;return `Hello, ${name}!`;<br>
+};<br><br>
+// Arrow function<br>
+const greet = (name) => `Hello, ${name}!`;<br><br>
+// IIFE<br>
+(function() {<br>
+&nbsp;&nbsp;console.log("This runs immediately");<br>
+})();<br><br>
+// Function with default parameters<br>
+function multiply(a, b = 1) {<br>
+&nbsp;&nbsp;return a * b;<br>
+}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>Practice Question</h3>
+                <p>Convert the following function declaration to an arrow function:</p>
+                <div class="code-block">
+function calculateArea(width, height) {<br>
+&nbsp;&nbsp;return width * height;<br>
+}
+                </div>
+                <button class="btn show-answer">Show Answer</button>
+                <div class="answer" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(119, 51, 255, 0.1); border-radius: 5px;">
+                    Arrow function version:<br>
+                    <div class="code-block">
+const calculateArea = (width, height) => width * height;
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="events" class="topic">
+            <h2>Events</h2>
+            
+            <div class="definition">
+                <h3>Definition</h3>
+                <p>Events are actions or occurrences that happen in the system you're programming, which the system tells you about so you can respond to them in some way if desired.</p>
+            </div>
+            
+            <div class="types">
+                <h3>Common Event Types</h3>
+                <div class="type-list">
+                    <div class="type-item">
+                        <strong>Mouse Events</strong> - click, dblclick, mouseover, mouseout, mousedown, mouseup
+                    </div>
+                    <div class="type-item">
+                        <strong>Keyboard Events</strong> - keydown, keyup, keypress
+                    </div>
+                    <div class="type-item">
+                        <strong>Form Events</strong> - submit, change, focus, blur
+                    </div>
+                    <div class="type-item">
+                        <strong>Window Events</strong> - load, resize, scroll
+                    </div>
+                </div>
+            </div>
+            
+            <div class="syntax">
+                <h3>Syntax</h3>
+                <div class="syntax-example">
+                    <div class="code-block">
+// Adding an event listener (recommended approach)<br>
+document.getElementById("myButton").addEventListener("click", function() {<br>
+&nbsp;&nbsp;alert("Button clicked!");<br>
+});<br><br>
+// Inline event handler (not recommended)<br>
+&lt;button onclick="alert('Clicked!')"&gt;Click me&lt;/button&gt;<br><br>
+// Event object<br>
+document.addEventListener("click", function(event) {<br>
+&nbsp;&nbsp;console.log(`Clicked at (${event.clientX}, ${event.clientY})`);<br>
+});<br><br>
+// Removing an event listener<br>
+function handleClick() {<br>
+&nbsp;&nbsp;console.log("Button clicked");<br>
+}<br>
+const button = document.getElementById("myButton");<br>
+button.addEventListener("click", handleClick);<br>
+// Later...<br>
+button.removeEventListener("click", handleClick);
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>Practice Question</h3>
+                <p>Write JavaScript code that changes the background color of a div with id "colorBox" to red when it's clicked.</p>
+                <button class="btn show-answer">Show Answer</button>
+                <div class="answer" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(119, 51, 255, 0.1); border-radius: 5px;">
+                    Solution:<br>
+                    <div class="code-block">
+document.getElementById("colorBox").addEventListener("click", function() {<br>
+&nbsp;&nbsp;this.style.backgroundColor = "red";<br>
+});
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="objects" class="topic">
+            <h2>Objects</h2>
+            
+            <div class="definition">
+                <h3>Definition</h3>
+                <p>Objects are collections of key-value pairs where each key (property) has a value that can be any data type, including other objects or functions (methods).</p>
+            </div>
+            
+            <div class="types">
+                <h3>Object Features</h3>
+                <div class="type-list">
+                    <div class="type-item">
+                        <strong>Properties</strong> - Key-value pairs that store data
+                    </div>
+                    <div class="type-item">
+                        <strong>Methods</strong> - Functions that are properties of an object
+                    </div>
+                    <div class="type-item">
+                        <strong>Constructors</strong> - Functions that create new objects
+                    </div>
+                    <div class="type-item">
+                        <strong>Prototypes</strong> - Mechanism for inheritance in JavaScript
+                    </div>
+                </div>
+            </div>
+            
+            <div class="syntax">
+                <h3>Syntax</h3>
+                <div class="syntax-example">
+                    <div class="code-block">
+// Object literal syntax<br>
+function Person(name, age) {<br>
+&nbsp;&nbsp;this.name = name;<br>
+&nbsp;&nbsp;this.age = age;<br>
+&nbsp;&nbsp;this.greet = function() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hello, I'm ${this.name}`);<br>
+&nbsp;&nbsp;};<br>
+}<br>
+const alice = new Person("Alice", 30);<br><br>
+// ES6 Classes<br>
+class Person {<br>
+&nbsp;&nbsp;constructor(name, age) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.name = name;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.age = age;<br>
+&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;greet() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hello, I'm ${this.name}`);<br>
+&nbsp;&nbsp;}<br>
+}<br><br>
+// Object methods<br>
+const person = {<br>
+&nbsp;&nbsp;name: "Bob",<br>
+&nbsp;&nbsp;age: 25,<br>
+&nbsp;&nbsp;greet() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Hi, I'm ${this.name}`);<br>
+&nbsp;&nbsp;}<br>
+};<br><br>
+// Object property access<br>
+console.log(person.name); // Dot notation<br>
+console.log(person["name"]); // Bracket notation
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>Practice Question</h3>
+                <p>Create an object called 'car' with properties: make (string), model (string), year (number), and a method startEngine() that logs "Vroom!" to the console.</p>
+                <button class="btn show-answer">Show Answer</button>
+                <div class="answer" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(119, 51, 255, 0.1); border-radius: 5px;">
+                    Solution:<br>
+                    <div class="code-block">
+const car = {<br>
+&nbsp;&nbsp;make: "Toyota",<br>
+&nbsp;&nbsp;model: "Camry",<br>
+&nbsp;&nbsp;year: 2020,<br>
+&nbsp;&nbsp;startEngine() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log("Vroom!");<br>
+&nbsp;&nbsp;}<br>
+};<br><br>
+// Usage:<br>
+car.startEngine(); // Logs "Vroom!" to console
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="arrays" class="topic">
+            <h2>Arrays</h2>
+            
+            <div class="definition">
+                <h3>Definition</h3>
+                <p>Arrays are ordered collections of values that can hold multiple items under a single variable name. Each value has a numeric index starting from 0.</p>
+            </div>
+            
+            <div class="types">
+                <h3>Array Methods</h3>
+                <div class="type-list">
+                    <div class="type-item">
+                        <strong>Modification Methods</strong> - push(), pop(), shift(), unshift(), splice()
+                    </div>
+                    <div class="type-item">
+                        <strong>Iteration Methods</strong> - forEach(), map(), filter(), reduce(), find()
+                    </div>
+                    <div class="type-item">
+                        <strong>Search Methods</strong> - indexOf(), includes(), findIndex()
+                    </div>
+                    <div class="type-item">
+                        <strong>Transformation Methods</strong> - join(), slice(), concat(), sort(), reverse()
+                    </div>
+                </div>
+            </div>
+            
+            <div class="syntax">
+                <h3>Syntax</h3>
+                <div class="syntax-example">
+                    <div class="code-block">
+// Array creation<br>
+const fruits = ["Apple", "Banana", "Orange"];<br>
+const numbers = new Array(1, 2, 3);<br><br>
+// Accessing elements<br>
+console.log(fruits[0]); // "Apple"<br>
+console.log(fruits.length); // 3<br><br>
+// Modifying arrays<br>
+fruits.push("Mango"); // Adds to end<br>
+fruits.pop(); // Removes from end<br>
+fruits.unshift("Strawberry"); // Adds to start<br>
+fruits.shift(); // Removes from start<br><br>
+// Iteration<br>
+fruits.forEach(fruit => console.log(fruit));<br>
+const upperFruits = fruits.map(fruit => fruit.toUpperCase());<br><br>
+// Searching<br>
+const index = fruits.indexOf("Banana"); // 1<br>
+const hasApple = fruits.includes("Apple"); // true<br><br>
+// ES6 Spread operator<br>
+const moreFruits = [...fruits, "Grape", "Kiwi"];
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>Practice Question</h3>
+                <p>Given an array of numbers [1, 2, 3, 4, 5], write code to create a new array with each number squared.</p>
+                <button class="btn show-answer">Show Answer</button>
+                <div class="answer" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(119, 51, 255, 0.1); border-radius: 5px;">
+                    Solution using map():<br>
+                    <div class="code-block">
+const numbers = [1, 2, 3, 4, 5];<br>
+const squaredNumbers = numbers.map(num => num * num);<br>
+console.log(squaredNumbers); // [1, 4, 9, 16, 25]
+                    </div>
+                    
+                    Alternative solution using forEach():<br>
+                    <div class="code-block">
+const numbers = [1, 2, 3, 4, 5];<br>
+const squaredNumbers = [];<br>
+numbers.forEach(num => {<br>
+&nbsp;&nbsp;squaredNumbers.push(num * num);<br>
+});<br>
+console.log(squaredNumbers); // [1, 4, 9, 16, 25]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 JavaLearn - All rights reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 1;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const opacity = Math.random() * 0.5 + 0.1;
+                
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                particle.style.opacity = opacity;
+                particle.style.background = `rgba(${Math.floor(Math.random() * 100 + 155)}, 
+                                                ${Math.floor(Math.random() * 100)}, 
+                                                ${Math.floor(Math.random() * 100 + 155)}, 
+                                                ${opacity})`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Topic navigation
+        document.querySelectorAll('.topic-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and topics
+                document.querySelectorAll('.topic-link').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.topic').forEach(el => el.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding topic
+                const topicId = this.getAttribute('data-topic');
+                document.getElementById(topicId).classList.add('active');
+                
+                // Smooth scroll to topic
+                document.getElementById(topicId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Show answer buttons
+        document.querySelectorAll('.show-answer').forEach(button => {
+            button.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                if (answer.style.display === 'none' || !answer.style.display) {
+                    answer.style.display = 'block';
+                    this.textContent = 'Hide Answer';
+                } else {
+                    answer.style.display = 'none';
+                    this.textContent = 'Show Answer';
+                }
+            });
+        });
+
+        // Initialize first topic as active
+        document.querySelector('.topic-link').click();
+        
+        // Create particles when page loads
+        window.addEventListener('load', createParticles);
+    </script>
+</body>
+</html>
